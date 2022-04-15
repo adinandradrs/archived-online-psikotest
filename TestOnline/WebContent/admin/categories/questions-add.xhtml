@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:head>
+		<ui:include src="/util/script.xhtml"></ui:include>
+	</h:head>
+	<h:body>
+		<ui:include src="/admin/util/menu.xhtml"></ui:include>
+		<h:form id="questions">
+			<rich:panel header="Questions of Category : #{categoriesBean.getCategories().name}" >
+				<table>
+					<tr>
+						<td valign="top">Option</td>
+						<td valign="top">:</td>
+						<td>
+							<h:selectBooleanCheckbox id="isMulti"></h:selectBooleanCheckbox>Is Multi
+							<h:selectBooleanCheckbox id="isEssay"></h:selectBooleanCheckbox>Is Essay
+							<div id="isAllowMultiKey"><h:selectBooleanCheckbox id="isAllowMultiKey"></h:selectBooleanCheckbox>Is Allow Multi Key</div>
+						</td>
+					</tr>
+					<tr class="generator">
+						<td>Total Answers</td>
+						<td>:</td>
+						<td><h:inputText id="totalAnwers" value="#{questionsBean.totalAnswers}"></h:inputText></td>
+					</tr>
+					<tr class="generator">
+						<td></td>
+						<td></td>
+						<td>
+						<h:commandButton value="Save">
+							<f:param value="#{categoriesBean.getCategories().categoryID}" name="catid"></f:param>
+						</h:commandButton></td>
+					</tr>
+					<tr>
+						<td valign="top">Description of Questions</td>
+						<td valign="top">:</td>
+						<td>
+							<h:inputTextarea id="description" value="#{questionsBean.description}"></h:inputTextarea>
+						</td>
+					</tr>
+					<c:forEach begin="1" end="#{questionsBean.totalAnswers}" var="val">
+						<tr>
+							<td valign="top">Answer ${val}</td>
+							<td valign="top">:</td>
+							<td><h:inputTextarea id="anwersSet${val}"></h:inputTextarea></td>
+						</tr>
+						<tr>
+							<td valign="top">Is Answer ${val} as a key?</td>
+							<td valign="top">:</td>
+							<td><h:selectBooleanCheckbox id="isKey${val}"></h:selectBooleanCheckbox></td>
+						</tr>    
+					</c:forEach>
+				</table>
+				<script> 
+					$(document).ready(function(){
+						$("#questions\\:isMulti").prop("checked",true)
+						var isMultiVal = $("#questions\\:isMulti:checked").val();
+						if (isMultiVal == null)
+							$(".generator").hide();
+		 				$("#questions\\:isMulti").click(function(){
+		 					var isMultiVal = $("#questions\\:isMulti:checked").val(); 
+		 					if(isMultiVal != null){
+		 						$("#questions\\:isEssay").prop("checked",false); 
+		 						$("#isAllowMultiKey").show();
+		 						$(".generator").show();
+		 						$("#questions\\:isKey#{questionsBean.totalAnswers}").prop("checked",false);
+		 					}
+		 					else{
+		 						$(".generator").hide();
+		 					}
+		 				});
+						$("#questions\\:isEssay").click(function(){
+		 					var isEssayVal = $("#questions\\:isEssay:checked").val(); 
+		 					if(isEssayVal != null){
+		 						$("#questions\\:isMulti").prop("checked",false);
+		 						$("#questions\\:isAllowMultiKey").prop("checked",false); 
+		 						$("#isAllowMultiKey").hide();
+		 						$(".generator").hide();
+		 						$("#questions\\:isKey#{questionsBean.totalAnswers}").prop("checked",true);
+		 							
+		 					}
+		 					else{
+		 						$("#isAllowMultiKey").show();
+		 						$(".generator").show();
+		 						$("#questions\\:isKey#{questionsBean.totalAnswers}").prop("checked",false);
+		 					}
+		 				});
+					});
+					CKEDITOR.replace('questions:description');
+					<c:forEach begin="1" end="#{questionsBean.totalAnswers}" var="val">
+						CKEDITOR.replace('questions:anwersSet${val}');
+					</c:forEach>
+					CKEDITOR.config.skin = 'office2013';
+				</script>
+				
+			    <h:commandButton value="Submit" action="#{questionsBean.saveQuestions}">
+			    	<f:param value="#{categoriesBean.getCategories().categoryID}" name="catid"></f:param>
+			    </h:commandButton>
+			</rich:panel>
+    	</h:form>
+	</h:body>
+</html>
+

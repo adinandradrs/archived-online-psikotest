@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:head>
+    	<title>#{usersBean.getUsersForReport().firstName} #{usersBean.getUsersForReport().lastName}</title>
+    	<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/assets/jquery.min.js"></script>
+	</h:head>
+	<h:body>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#cat2").hide();
+				$("#cat3").hide();
+				$("#cat4").hide();
+				$("#cat5").hide();
+				$("#cat6").hide();
+				
+				$("#page1").click(function(){
+					$("#cat1").show();
+					$("#cat2").hide();
+					$("#cat3").hide();
+					$("#cat4").hide();
+					$("#cat5").hide();
+					$("#cat6").hide();
+				});
+				
+				$("#page2").click(function(){
+					$("#cat1").hide();
+					$("#cat2").show();
+					$("#cat3").hide();
+					$("#cat4").hide();
+					$("#cat5").hide();
+					$("#cat6").hide();
+				});
+				
+				$("#page3").click(function(){
+					$("#cat1").hide();
+					$("#cat2").hide();
+					$("#cat3").show();
+					$("#cat4").hide();
+					$("#cat5").hide();
+					$("#cat6").hide();
+				});
+				
+				$("#page4").click(function(){
+					$("#cat1").hide();
+					$("#cat2").hide();
+					$("#cat3").hide();
+					$("#cat4").show();
+					$("#cat5").hide();
+					$("#cat6").hide();
+				});
+				
+				$("#page5").click(function(){
+					$("#cat1").hide();
+					$("#cat2").hide();
+					$("#cat3").hide();
+					$("#cat4").hide();
+					$("#cat5").show();
+					$("#cat6").hide();
+				});
+				
+				$("#page6").click(function(){
+					$("#cat1").hide();
+					$("#cat2").hide();
+					$("#cat3").hide();
+					$("#cat4").hide();
+					$("#cat5").hide();
+					$("#cat6").show();
+				});
+			});
+		</script>
+		<h:form>
+			<div style="margin:0 auto 0 auto; width:1000px; border:1px solid black; padding:5px;">
+				<div style="font-size:15pt; font-weight:bold;">
+					TIKI Report
+					<hr/>
+				</div>
+				<div style="margin-top:10px; font-size:10pt; font-weight:bold;">
+					<table>
+						<tr>
+							<td>Fullname</td>
+							<td>:</td>
+							<td>#{usersBean.getUsersForReport().firstName} #{usersBean.getUsersForReport().lastName}</td>
+						</tr>
+						<tr>
+							<td>Login As</td>
+							<td>:</td>
+							<td>#{usersBean.getUsersForReport().userID}</td>
+						</tr>
+					</table>
+				</div>
+				<div style="padding:10px;">
+				</div>
+				<center>
+					<div id="cat1">
+						<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(3)}" var="q">
+							<rich:column>
+				                <f:facet name="header">
+				                    <h:panelGroup>
+										<h:outputText value="Questions for Berhitung Angka : #{reportBean.listOfFormsMasterForReport(3).size()}" />
+				                    </h:panelGroup>
+				                </f:facet>
+				                
+				                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+									<rich:column>
+						                <f:facet name="header">
+						                    <h:panelGroup>
+						                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+						                    </h:panelGroup>
+						                </f:facet>
+						                <table>
+						                	<tr>
+						                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+						                		<td>
+					                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+													<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+						                		</td>
+						                	</tr>
+						                </table>
+						            </rich:column>
+								</rich:dataTable>
+				            </rich:column>
+						</rich:dataTable>
+					</div>
+					<div id="cat2">
+						<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(4)}" var="q" >
+							<rich:column>
+				                <f:facet name="header">
+				                    <h:panelGroup>
+										<h:outputText value="Questions for Gabungan Bagian : #{reportBean.listOfFormsMasterForReport(4).size()}" />
+				                    </h:panelGroup>
+				                </f:facet>
+				                
+				                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+									<rich:column>
+						                <f:facet name="header">
+						                    <h:panelGroup>
+						                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+						                    </h:panelGroup>
+						                </f:facet>
+						                <table>
+						                	<tr>
+						                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+						                		
+						                		<td>
+					                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+													<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+						                		</td>
+						                	</tr>
+						                </table>
+						            </rich:column>
+								</rich:dataTable>
+				            </rich:column>
+						</rich:dataTable>
+					</div>
+					<div id="cat3">
+					<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(5)}" var="q" >
+						<rich:column>
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Questions for Hubungan Kata : #{reportBean.listOfFormsMasterForReport(5).size()}" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                
+			                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+								<rich:column>
+					                <f:facet name="header">
+					                    <h:panelGroup>
+					                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+					                    </h:panelGroup>
+					                </f:facet>
+					                <table>
+					                	<tr>
+					                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+					                		<td>
+				                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+												<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+					                		</td>
+					                	</tr>
+					                </table>
+					            </rich:column>
+							</rich:dataTable>
+			            </rich:column>
+					</rich:dataTable>
+					</div>
+					<div id="cat4">
+						<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(6)}" var="q" >
+							<rich:column>
+				                <f:facet name="header">
+				                    <h:panelGroup>
+										<h:outputText value="Questions for Abstraksi non Verbal : #{reportBean.listOfFormsMasterForReport(6).size()}" />
+				                    </h:panelGroup>
+				                </f:facet>
+				                
+				                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+									<rich:column>
+						                <f:facet name="header">
+						                    <h:panelGroup>
+						                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+						                    </h:panelGroup>
+						                </f:facet>
+						                <table>
+						                	<tr>
+						                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+						                		<td>
+					                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+													<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+						                		</td>
+						                	</tr>
+						                </table>
+						            </rich:column>
+								</rich:dataTable>
+				            </rich:column>
+						</rich:dataTable>
+					</div>
+					<div id="cat5">
+						<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(7)}" var="q" >
+							<rich:column>
+				                <f:facet name="header">
+				                    <h:panelGroup>
+										<h:outputText value="Questions for Deret Angka : #{reportBean.listOfFormsMasterForReport(7).size()}" />
+				                    </h:panelGroup>
+				                </f:facet>
+				                
+				                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+									<rich:column>
+						                <f:facet name="header">
+						                    <h:panelGroup>
+						                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+						                    </h:panelGroup>
+						                </f:facet>
+						                <table>
+						                	<tr>
+						                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+						                		<td>
+					                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+													<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+						                		</td>
+						                	</tr>
+						                </table>
+						            </rich:column>
+								</rich:dataTable>
+				            </rich:column>
+						</rich:dataTable>
+					</div>
+					<div id="cat6">
+						<rich:dataTable style="width:100%" value="#{reportBean.listOfFormsMasterForReport(8)}" var="q" >
+							<rich:column>
+				                <f:facet name="header">
+				                    <h:panelGroup>
+										<h:outputText value="Questions for Meneliti : #{reportBean.listOfFormsMasterForReport(8).size()}" />
+				                    </h:panelGroup>
+				                </f:facet>
+				                
+				                <rich:dataTable style="width:100%" value="#{reportBean.listOfFormsDetailForReport(q.question)}" var="a" >
+									<rich:column>
+						                <f:facet name="header">
+						                    <h:panelGroup>
+						                    	<h:outputText value="Answer for #{q.question.questionNum}. #{q.question.description}" escape="false" />
+						                    </h:panelGroup>
+						                </f:facet>
+						                <table>
+						                	<tr>
+						                		<td><h:outputText value="#{a.answer.description}" escape="false" /></td>
+						                		<td>
+					                				<h:outputText value="False" escape="false" rendered="#{a.answer.isKey == 0}" />
+													<h:outputText value="True" escape="false" rendered="#{a.answer.isKey == 1}"/>
+						                		</td>
+						                	</tr>
+						                </table>
+						            </rich:column>
+								</rich:dataTable>
+				            </rich:column>
+						</rich:dataTable>
+					</div>
+					<a href="#" id="page1">1</a> |
+					<a href="#" id="page2">2</a> |
+					<a href="#" id="page3">3</a> |
+					<a href="#" id="page4">4</a> |
+					<a href="#" id="page5">5</a> |
+					<a href="#" id="page6">6</a>
+				</center>
+
+			</div>
+	    </h:form>
+	</h:body>
+</html>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:head>
+		<ui:include src="../util/script.xhtml"></ui:include>
+	</h:head>
+	<h:body>
+		<ui:fragment rendered="#{categoriesBean.getCategories().timeInMinutes != 0}">
+			<script type="text/javascript">
+				$(document).ready(function(){
+	 				var timer = #{categoriesBean.getCategories().timeInMinutes} * 60 * 1000;
+	 				$('#exam-warning').hide();
+	 				setTimeout(function(){ 
+	 			        $('#exam-paper').fadeOut(1500);
+	 			        $('#exam-warning').fadeIn(4000);
+	 		        }, timer); 
+				});
+			</script>
+		</ui:fragment>
+		<div class="wrapper">
+			<ui:include src="../util/exam.xhtml"/>
+			<rich:panel header="Exam : #{categoriesBean.getCategories().name}">				
+				<center>
+					<ui:fragment rendered="#{categoriesBean.getCategories().timeInMinutes != 0}">
+						<div id="exam-warning">
+							Please submit your work now!
+						</div>
+					</ui:fragment>
+					<br/>
+					<div id="exam-paper">
+						<ui:include src="form.xhtml"></ui:include>
+					</div>
+		    	</center>
+		    </rich:panel>
+		</div>
+	</h:body>
+</html>

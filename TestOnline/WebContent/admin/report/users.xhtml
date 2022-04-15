@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:head>
+		<ui:include src="/util/script.xhtml"></ui:include>
+	</h:head>
+	<h:body>
+		<ui:include src="/admin/util/menu.xhtml"></ui:include>
+		<h:form>
+			<rich:panel header="Search">
+				<center>
+					<rich:dataTable id="users" style="width:70%" value="#{usersBean.listOfUsers()}" var="u" rows="10">
+						<rich:column filterValue="#{usersBean.userID}"
+			                filterExpression="#{fn:containsIgnoreCase(u.userID,usersBean.userID)}">
+			                <f:facet name="header">
+			                    <h:panelGroup>
+			                    	<h:outputText value="User ID" />
+			                        <h:inputText value="#{usersBean.userID}">
+			                            <a4j:ajax event="blur" render="table" execute="@this" />
+			                        </h:inputText>
+			                    </h:panelGroup>
+			                </f:facet>
+			                #{u.userID}
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="First Name" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                #{u.firstName}
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Last Name" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                #{u.lastName}
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Attempt Report" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                <center>
+				                <h:outputLink value="mbti.jsf">MBTI
+					                <f:param name="userid" value="#{u.userID}"></f:param>
+					                <f:param name="catid" value="3"></f:param>
+					                <f:param name="catid2" value="4"></f:param>
+					                <f:param name="catid3" value="5"></f:param>
+					                <f:param name="catid4" value="6"></f:param>
+				                </h:outputLink> |
+				                <h:outputLink value="tiki.jsf">TIKI
+					                <f:param name="userid" value="#{u.userID}"></f:param>
+				                </h:outputLink> |
+				                <a href="wpt.jsf?userid=#{u.userID}">WPT</a> |
+				                <a href="papikostik.jsf?userid=#{u.userID}">Papikostik</a>
+			                </center>
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Summary Report" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                <center>
+				                <a href="result.jsf?userid=#{u.userID}">Summary</a> 
+			                </center>
+			            </rich:column>
+				        <f:facet name="footer">
+			                <rich:dataScroller for="users" id="scroller" />
+			            </f:facet>
+		        	</rich:dataTable>
+				</center>
+		    </rich:panel>
+	    </h:form>
+	</h:body>
+</html>
+

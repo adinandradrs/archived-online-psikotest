@@ -1,0 +1,72 @@
+@CHARSET "ISO-8859-1";
+
+html{
+	padding:0;
+	margin:0;
+}
+
+body{
+	padding:0;
+	margin:0;
+	font-family: sans;
+	font-size: 9pt;
+	background:url("htmlbg.png");
+}
+
+.wrapper{
+	margin: 0px auto 30px auto;
+	width:90%;
+	min-height:250px;
+	border:1px dotted pink;
+}
+
+.wrapper .header{
+	height:80px;
+	width:100%;
+}
+
+.header{
+	background:url("header.jpg");
+}
+
+.header .title{
+	font-size:25pt;
+	font-weight:bold;
+	margin-left: 20px;
+	margin-top:0px;
+	color:yellow;
+}
+
+.title span{
+	color:orange;
+}
+
+.wrapper .navbar {
+	min-height:10px;
+	width:100%;
+}
+
+.navinfo{
+	width:100%;
+}
+
+.question{
+	width:100%;
+}
+
+.question .answer{
+	width:60%;
+}
+
+.question td{
+	vertical-align:  top;
+	border-bottom: 1px solid black;
+}
+
+.noborder td{
+	border-style: none;
+}
+
+.navinfo .navinfotext{
+	margin:10px 10px 10px 10px;
+}

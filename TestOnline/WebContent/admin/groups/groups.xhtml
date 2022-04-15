@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<h:head>
+		<ui:include src="/util/script.xhtml"></ui:include>
+	</h:head>
+	<h:body>
+		<ui:include src="/admin/util/menu.xhtml"></ui:include>
+		<h:form>
+			<rich:panel header="Groups">
+				<center>
+					<rich:dataTable id="groups" style="width:70%" value="#{groupsBean.listOfGroups()}" var="g" rows="10">
+						<rich:column rendered="#{g.name != 'Administrator'}">
+			                <f:facet name="header">
+			                    <h:panelGroup>
+			                    	<h:outputText value="Group ID" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                <h:commandLink value="#{g.groupID}" action="users.xhtml">
+			            		<f:param name="groupid" value="#{g.groupID}" />
+			            	</h:commandLink>
+			            </rich:column>
+			            <rich:column rendered="#{g.name != 'Administrator'}">
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Name" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                #{g.name}
+			            </rich:column>
+			            <rich:column rendered="#{g.name != 'Administrator'}">
+			                <f:facet name="header">
+			                    <h:panelGroup>
+									<h:outputText value="Expired At" />
+			                    </h:panelGroup>
+			                </f:facet>
+			                #{g.expiredAt}
+			            </rich:column>
+			            <rich:column rendered="#{g.name != 'Administrator'}">
+			            	<f:facet name="header">
+			            		<h:panelGroup>
+			            			<h:outputText value="Action" />
+			            		</h:panelGroup>
+			            	</f:facet>
+			            	<center>
+				            	<a href="groups-add.jsf">New</a> |
+				            	<a href="groups-edit.jsf?groupid=#{g.groupID}">Update</a> |
+				            	<h:commandLink value="Delete" action="#{groupsBean.deleteGroups}">
+				            		<f:param name="groupid" value="#{g.groupID}" />
+				            	</h:commandLink>
+			            	</center>
+			            </rich:column>
+				        <f:facet name="footer">
+			                <rich:dataScroller for="groups" id="scroller" />
+			            </f:facet>
+		        	</rich:dataTable>
+				</center>
+		    </rich:panel> 
+	    </h:form>
+	</h:body>
+</html>
+

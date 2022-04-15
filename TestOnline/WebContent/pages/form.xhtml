@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:head>
+		<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/assets/jquery.min.js"></script>
+	</h:head>
+	<h:body>
+		<h:form id="form" rendered="#{attemptsBean.getAttempts() == true}"> 
+			<ui:fragment rendered="#{attemptsBean.isSubmit() == true}">
+				You already submit! Please contact your administrator!
+			</ui:fragment>
+				<a4j:repeat rowKeyVar="rowIndex" var="tab" value="#{questionsBean.getQuestionsBatch()}">
+					 <div id="tab#{rowIndex + 1}">
+			           <h:dataTable value="#{questionsBean.listOfQuestions(tab)}" var="q" styleClass="question" rendered="#{attemptsBean.isInRange() == true or categoriesBean.getCategories().timeInMinutes == 0}">
+				   			<h:column>
+			    				<f:facet name="header">No.</f:facet>
+			    				#{q.questionNum}.
+			    			</h:column>
+			    			<h:column>
+			    				<f:facet name="header">Question</f:facet>
+			    				<h:outputText value="#{q.description}" escape="false"></h:outputText>
+			    			</h:column>
+			    			<h:column headerClass="answer">
+			    				<f:facet name="header">Your Answer</f:facet>
+			    				<ui:fragment rendered="#{q.isMulti == 0 and q.isEssay == 0}">
+			    					<table class="noborder">
+			    					<ui:repeat var="a" value="#{answersBean.listOfAnswers(q)}">
+			    						
+		    							<tr>
+		    								<td>
+						    					<input type="radio" name="#{q.questionID}" value="#{a.answerID}"> 
+						    					</input>
+					    					</td>
+		    								<td>
+			    								<h:outputText value="#{a.description}" escape="false"></h:outputText>
+		    								</td>
+		    							</tr>
+
+				    				</ui:repeat>
+				    				</table>
+			    				</ui:fragment>
+			    				
+			    				<ui:fragment rendered="#{q.isMulti == 1 and q.isEssay == 0}">
+			    					<table class="noborder">
+				    					<ui:repeat var="a" value="#{answersBean.listOfAnswers(q)}">
+					    					<tr>
+					    						<td><input type="checkbox" name="#{q.questionID}" value="#{a.answerID}"></input></td>
+					    						<td><h:outputText value="#{a.description}" escape="false"></h:outputText></td>
+					    					</tr>
+					    				</ui:repeat>
+				    				</table>
+			    				</ui:fragment>
+			    				<ui:fragment rendered="#{q.isEssay == 1 and q.isMulti == 0}">
+			    					<input type="text" name="#{q.questionID}"></input>
+			    				</ui:fragment>
+			    			</h:column>
+			    			
+			    		</h:dataTable>
+		    		</div>
+				</a4j:repeat>
+				<div id="btnsubmit" align="right">
+                	<h:commandButton value="Submit Answer" action="#{formsBean.saveForms}">
+		    			<f:param name="catid" value="#{categoriesBean.getCategories().categoryID}" />
+		    		</h:commandButton>
+				</div>
+				<c:forEach begin="1" end="#{questionsBean.getQuestionsBatch().getRowCount()}" var="val">
+						<a href="#" id="page${val}">${val}</a>&nbsp;
+				</c:forEach>
+				
+			<script type="text/javascript">
+				$(document).ready(function(){	
+					$("#btnsubmit").hide();
+					<c:forEach begin="2" end="#{questionsBean.getQuestionsBatch().getRowCount()}" var="val">
+					$("#tab${val}").hide();
+					</c:forEach>
+					
+					<c:forEach begin="1" end="#{questionsBean.getQuestionsBatch().getRowCount()}" var="val">
+						$("#page${val}").click(function(){
+							<c:forEach begin="1" end="#{questionsBean.getQuestionsBatch().getRowCount()}" var="val2">
+							$("#tab${val2}").hide();
+							</c:forEach>
+							$("#tab${val}").show();
+
+							<c:if test ="${val != 4}">
+							$("#btnsubmit").hide();
+							</c:if>
+							<c:if test ="${val == questionsBean.getQuestionsBatch().getRowCount()}">
+							$("#btnsubmit").show();
+							</c:if>
+						});
+						
+					</c:forEach>
+				});
+			</script>
+			
+		</h:form>
+		<center>
+			<h:outputText value="You have attempted this category, contact your administrator!" rendered="#{attemptsBean.getAttempts() == false}"></h:outputText>
+		</center>
+	</h:body>
+</html>
+

@@ -1,0 +1,39 @@
+<lang 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<div class="navbar">
+		 <rich:toolbar>
+           	<rich:menuItem label="Home" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/index.jsf'" />
+            <rich:menuItem label="Exam" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=3'" />
+            <rich:menuItem label="Logout" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/logout.jsf'" />
+            <!--<rich:dropDownMenu mode="ajax">
+                <f:facet name="label">
+                    <h:panelGrid>
+                        <h:outputText value="Exam" />
+                    </h:panelGrid>
+                </f:facet>
+                <rich:menuGroup label="TIKI">
+	                <rich:menuItem label="Berhitung Angka" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=3'" />
+	                <rich:menuItem label="Gabungan Bagian" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=4'" />
+	                <rich:menuItem label="Hubungan Kata" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=5'" />
+	                <rich:menuItem label="Abstraksi Non Verbal" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=6'" />
+	                <rich:menuItem label="Deret Angka" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=7'" />
+                	<rich:menuItem label="Meneliti" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=8'" />
+                </rich:menuGroup>
+                <rich:menuItem label="WPT-A" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=10'" />
+                <rich:menuGroup label="MBTI">
+                	<rich:menuItem label="Kelompok 1" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=11'" />
+                	<rich:menuItem label="Kelompok 2" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=12'" />
+                	<rich:menuItem label="Kelompok 3" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=13'" />
+                	<rich:menuItem label="Kelompok 4" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=14'" />
+                </rich:menuGroup>
+                <rich:menuItem label="Papikostik" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/pages/introduction.jsf?catid=1'" />
+            </rich:dropDownMenu>-->
+        </rich:toolbar>
+	</div>
+</lang>

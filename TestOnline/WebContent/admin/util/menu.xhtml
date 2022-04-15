@@ -1,0 +1,16 @@
+<lang 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<rich:toolbar>
+		<rich:menuItem label="Home" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/admin/index.jsf'" />
+        <rich:menuItem label="Groups" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/admin/groups/groups.jsf'" />
+        <rich:menuItem label="Categories" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/admin/categories/categories.jsf'" />
+        <rich:menuItem label="Report" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/admin/report/search.jsf'" />
+        <rich:menuItem label="Logout" submitMode="client" onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/logout.jsf'" />  
+	</rich:toolbar>
+</lang>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:head>
+		<ui:include src="/util/script.xhtml"></ui:include>
+	</h:head>
+	<h:body>
+		<ui:include src="/admin/util/menu.xhtml"></ui:include>
+		<rich:panel header="Search Users by Group">
+	        <center>
+	        	<h:form id="form">
+	        		<table>
+	        			<tr>
+	        				<td>User Group</td>
+	        				<td>:</td>
+	        				<td>
+		        				<select name="groupid">
+									<ui:repeat var="g" value="#{groupsBean.listOfGroups()}">
+										<option value="#{g.groupID}">#{g.name}</option>
+									</ui:repeat>
+								</select>
+							</td>
+	        			</tr>
+	        			<tr>
+	        				<td></td>
+	        				<td></td>
+	        				<td><h:commandButton value="Search" action="users.xhtml"></h:commandButton></td>
+	        			</tr>
+	        			<tr>
+	        				<td></td>
+	        				<td></td>
+	        				<td>TOS &copy; 2014 ECS</td>
+	        			</tr>
+	        		</table>
+	        	</h:form>
+	        </center>
+	    </rich:panel>
+	</h:body>
+</html>
+
